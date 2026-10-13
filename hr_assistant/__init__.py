@@ -70,7 +70,7 @@ async def handle_message(message: cl.Message):
         stream = LLMHelper.chat(messages)
 
         for chunk in stream:
-            await response_message.stream_token(str(chunk.choices[0].delta.content))
+            await response_message.stream_token(str(chunk.choices[0].delta.content or ""))
 
         messages.append({"role": "assistant", "content": response_message.content})
         await response_message.update()

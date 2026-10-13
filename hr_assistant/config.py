@@ -6,15 +6,13 @@ class Config:
     DOCUMENTS_DIR = "resumes"
     COLLECTION_NAME = "CVs"
     PERSISTENT_DIR = "data/chromadb"
-    # Embedding
-    MODEL_NAME = "text-embedding-3-small"
-    OPENAI_KEY = os.environ["OPENAI_API_KEY"]
+    # Embedding: modello locale di Chroma (nessuna chiave, vedi database.py)
     # Completamento
     ### ollama
-    # LLM_MODEL = "llama3.2"  # "deepseek-r1:1.5b"  # "llama3.2" #  "deepseek-r1:1.5b"
+    # LLM_MODEL = "llama3.2"
     # AI_API_URL = "http://localhost:11434/v1"
     # AI_API_KEY = "ollama"
-    ### openai
-    LLM_MODEL = "gpt-4o-mini"
-    AI_API_URL = "https://api.openai.com/v1/"
-    AI_API_KEY = os.environ["OPENAI_API_KEY"]
+    ### groq (API compatibile con OpenAI)
+    LLM_MODEL = "openai/gpt-oss-120b"
+    AI_API_URL = "https://api.groq.com/openai/v1"
+    AI_API_KEY = os.environ.get("GROQ_API_KEY")

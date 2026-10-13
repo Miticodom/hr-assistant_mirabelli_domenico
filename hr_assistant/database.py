@@ -1,19 +1,14 @@
 # database.py
 import chromadb
-from chromadb.utils import embedding_functions
 from config import Config
 
 
 class Database:
     def __init__(self):
-        self.openai_ef = embedding_functions.OpenAIEmbeddingFunction(
-            api_key=Config.OPENAI_KEY, model_name=Config.MODEL_NAME
-        )
-
-        # Initialize persistent client
+        # Nessuna embedding_function: Chroma usa il suo modello locale (gratis, senza chiave)
         self.client = chromadb.PersistentClient(path=Config.PERSISTENT_DIR)
         self.collection = self.client.get_or_create_collection(
-            name=Config.COLLECTION_NAME, embedding_function=self.openai_ef
+            name=Config.COLLECTION_NAME
         )
 
     def add_documents(self, documents, metadatas, ids):
