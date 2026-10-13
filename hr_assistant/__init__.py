@@ -50,9 +50,9 @@ async def handle_message(message: cl.Message):
 
     context = f"CONTESTO: nome file {results['metadatas'][0][0]['source']} ecco il paragrafo piu' significativo: {results['documents'][0][0]}"
 
-    candidate_name = await LLMHelper.get_candidate_name(context_lines)
+    cv_header = "\n".join(context_lines)
 
-    prompt = LLMHelper.create_prompt(context, user_question, candidate_name)
+    prompt = LLMHelper.create_prompt(context, user_question, cv_header)
 
     messages = cl.user_session.get("messages", [])
     messages.append({"role": "user", "content": prompt})

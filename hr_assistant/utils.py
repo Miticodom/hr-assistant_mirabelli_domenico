@@ -14,31 +14,22 @@ class LLMHelper:
         )
 
     @staticmethod
-    async def get_candidate_name(context):
-        response = client.chat.completions.create(
-            model=Config.LLM_MODEL,
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""
-                      Dato il seguente contesto individua il nome e cognome del candidato e ritorna solo il nome e cognome del candidato. Quello che sto per fornirti e' l'inizio del curriculum vitae del candidato: {context}
-                      """,
-                }
-            ],
-        )
-        return response.choices[0].message.content
-
-    @staticmethod
-    def create_prompt(context, question, candidate_name):
+    def create_prompt(context, question, cv_header):
         return f"""
-            Dato il seguente contesto: 
+            Dato il seguente contesto:
             [[[
             {context}
             ]]].
-            Rispondi alla domanda dell'utente: [[[ {question}]]] .
-            Spiega che nel file individuato c'e' il profilo piu' adatto. 
-            Assicurati di nominare il Nome dei file.
-            Assicurati di indicare il nome del candidato: [[[ {candidate_name} ]]].
-            Argometa la scelta utilizzando il contenuto del testo individuato nel contesto.
-            Se non trovi corrispondeza in nessun cv non inventare.
+            Ecco l'intestazione del curriculum del candidato:
+            [[[
+            {cv_header}
+            ]]].
+            Rispondi alla domanda dell'utente: [[[ {question} ]]] .
+            Spiega che nel file individuato c'e' il profilo piu' adatto.
+            Assicurati di nominare il nome del file.
+            Ricava dall'intestazione nome e cognome, numero di telefono ed e-mail
+            del candidato e riportali all'inizio della risposta.
+            Se uno di questi dati non e' presente scrivi "non indicato", non inventarlo.
+            Argomenta la scelta utilizzando il contenuto del testo individuato nel contesto.
+            Se non trovi corrispondenza in nessun cv non inventare.
         """
