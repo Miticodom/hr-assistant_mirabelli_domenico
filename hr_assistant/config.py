@@ -1,10 +1,11 @@
 # config.py
 import os
 
+
 class Config:
     DOCUMENTS_DIR = "resumes"
     COLLECTION_NAME = "CVs"
-    PERSISTENT_DIR = "data/chromadb" #news
+    PERSISTENT_DIR = "data/chromadb"
     # Embedding
     MODEL_NAME = "text-embedding-3-small"
     OPENAI_KEY = os.environ["OPENAI_API_KEY"]
