@@ -6,7 +6,7 @@ class Database:
     def __init__(self):
         # Inizializza la funzione di embedding personalizzata
         self.local_ef = CustomEmbeddingFunction()
-        
+
         # Inizializza il client persistente di ChromaDB
         self.client = chromadb.PersistentClient(path=Config.PERSISTENT_DIR)
 
